@@ -252,7 +252,7 @@ if (isset($_GET['reset'])) {
 
 
         <table id="mainDat">
-            <div style="height:50px; overflow:scroll;">
+            <div style="height:50px; overflow: auto;">
                 <tr style="border-bottom: 4.2px solid #FFFF00;">
                     <th>Category</th>
                     <th>Amount</th>
