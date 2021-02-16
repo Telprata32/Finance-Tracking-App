@@ -252,36 +252,38 @@ if (isset($_GET['reset'])) {
 
 
         <table id="mainDat">
-            <tr style="border-bottom: 4.2px solid #FFFF00;">
-                <th>Category</th>
-                <th>Amount</th>
-                <th>Date</th>
+            <div style="height:50px; overflow:scroll;">
+                <tr style="border-bottom: 4.2px solid #FFFF00;">
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Date</th>
 
-            </tr>
-
-
-
-
-            <?php
-
-            //check if the expenses table exists or not
-            $expChk = $conn->prepare('SELECT 1 FROM `Expenses` LIMIT 1');
+                </tr>
 
 
-            if ($expChk == TRUE) {
-                // Prepare query to enter transactions for account logged in
-                $sQry = $conn->prepare("SELECT * FROM Expenses WHERE Email=?");
-                $sQry->bind_param("s", $usEmail);
-                $sQry->execute();
-                $exQry = $sQry->get_result();
 
-                // Fill the table elements with html elements
-                while ($tblRow = $exQry->fetch_array()) {
-                    echo "<tr>" . "<th>" . ($tblRow['Category']) . "</th>" . "<th>" . "RM " . ($tblRow['Amount']) . "</th>" . "<th>" . ($tblRow['pyDate']) . "</th>" . "</tr>";
+
+                <?php
+
+                //check if the expenses table exists or not
+                $expChk = $conn->prepare('SELECT 1 FROM `Expenses` LIMIT 1');
+
+
+                if ($expChk == TRUE) {
+                    // Prepare query to enter transactions for account logged in
+                    $sQry = $conn->prepare("SELECT * FROM Expenses WHERE Email=?");
+                    $sQry->bind_param("s", $usEmail);
+                    $sQry->execute();
+                    $exQry = $sQry->get_result();
+
+                    // Fill the table elements with html elements
+                    while ($tblRow = $exQry->fetch_array()) {
+                        echo "<tr>" . "<th>" . ($tblRow['Category']) . "</th>" . "<th>" . "RM " . ($tblRow['Amount']) . "</th>" . "<th>" . ($tblRow['pyDate']) . "</th>" . "</tr>";
+                    }
                 }
-            }
 
-            ?>
+                ?>
+            </div>
 
         </table>
 
