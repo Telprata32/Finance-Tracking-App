@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $trnCat = $_POST['catGory'];
 
     if (preg_match("/[a-z]/i", $inAmount)) {
-      echo "<script> alert(\"The value entered is a string, only integers are excepted\")</script>";
+      echo "<script> alert(\"The value entered is a string, only integers are accepted\")</script>";
     } 
     else 
     {

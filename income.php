@@ -127,7 +127,7 @@ $exQry = $sQry->get_result();
   // Execute function to calculate balance of account
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (preg_match("/[a-z]/i", $_POST['amount'])) {
-      echo "<script> alert(\"The value entered is a string, only integers are excepted\")</script>";
+      echo "<script> alert(\"The value entered is a string, only integers are accepted\")</script>";
     } else {
       //If the record for the specific account doesn't exist create one
       if ($exQry->num_rows >= 1) {
