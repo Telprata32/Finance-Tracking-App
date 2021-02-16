@@ -57,45 +57,45 @@ $exQry = $sQry->get_result();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Finance App</title>
   <style>
-     .income {
-            margin-top: 25%;
-            margin-left: 15%;
-            font-size: 40px;
-        }
+    .income {
+      margin-top: 25%;
+      margin-left: 15%;
+      font-size: 40px;
+    }
 
-        .key1 {
-            border-style: solid;
-            border-width: 1.4px;
-            border-color: black;
-            color: #b27720;
-            float: left;
-            padding: 4.7px;
-            text-align: center;
-            width: 40%;
-        }
+    .key1 {
+      border-style: solid;
+      border-width: 1.4px;
+      border-color: black;
+      color: #b27720;
+      float: left;
+      padding: 4.7px;
+      text-align: center;
+      width: 40%;
+    }
 
-        #amount1 {
-            font-size: 40px;
-            border-style: solid;
-            border-width: 1.4px;
-            border-color: black;
-            width: 40%;
-            text-align: center;
-        }
+    #amount1 {
+      font-size: 40px;
+      border-style: solid;
+      border-width: 1.4px;
+      border-color: black;
+      width: 40%;
+      text-align: center;
+    }
 
-        .subBtn {
-            background-color: #0563af;
-            color: white;
-            padding: 12px;
-            width: 225px;
-            margin-left: 23.3cm;
-            border: none;
-            border-radius: 13px;
-            font-size: 20px;
-            -webkit-appearance: button;
-            appearance: button;
-            outline: none;
-        }
+    .subBtn {
+      background-color: #0563af;
+      color: white;
+      padding: 12px;
+      width: 225px;
+      margin-left: 23.3cm;
+      border: none;
+      border-radius: 13px;
+      font-size: 20px;
+      -webkit-appearance: button;
+      appearance: button;
+      outline: none;
+    }
   </style>
 </head>
 
@@ -126,30 +126,34 @@ $exQry = $sQry->get_result();
 
   // Execute function to calculate balance of account
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //If the record for the specific account doesn't exist create one
-    if ($exQry->num_rows >= 1) {
-      //Retrieve respective Balance value from database
-      $recv = $exQry->fetch_array();
-      $Bal = $recv['accBal'];
-
-      //Obtain the balance from the form
-      $upBal = $_POST['amount'];
-
-      //Calculate the updated balance
-      $Bal += $upBal;
-
-      //Prepare the parameter to update the value of the balance
-      $Qr2 = $conn->prepare("UPDATE Balance SET accBal=? WHERE Email=?");
-      $Qr2->bind_param("ds", $Bal, $usEmail);
-      $Qr2->execute();
+    if (preg_match("/[a-z]/i", $_POST['amount'])) {
+      echo "<script> alert(\"The value entered is a string, only integers are excepted\")</script>";
     } else {
-      //Obtain the balance from the form
-      $Bal = $_POST['amount'];
+      //If the record for the specific account doesn't exist create one
+      if ($exQry->num_rows >= 1) {
+        //Retrieve respective Balance value from database
+        $recv = $exQry->fetch_array();
+        $Bal = $recv['accBal'];
 
-      //Prepare the parameter to create the record of the balance for the account
-      $Qr2 = $conn->prepare("INSERT INTO Balance (Email,accBal) VALUES (?,?)");
-      $Qr2->bind_param("sd", $usEmail, $Bal);
-      $Qr2->execute();
+        //Obtain the income value from the form
+        $upBal = $_POST['amount'];
+
+        //Calculate the updated balance
+        $Bal += $upBal;
+
+        //Prepare the parameter to update the value of the balance
+        $Qr2 = $conn->prepare("UPDATE Balance SET accBal=? WHERE Email=?");
+        $Qr2->bind_param("ds", $Bal, $usEmail);
+        $Qr2->execute();
+      } else {
+        //Obtain the balance from the form
+        $Bal = $_POST['amount'];
+
+        //Prepare the parameter to create the record of the balance for the account
+        $Qr2 = $conn->prepare("INSERT INTO Balance (Email,accBal) VALUES (?,?)");
+        $Qr2->bind_param("sd", $usEmail, $Bal);
+        $Qr2->execute();
+      }
     }
   }
   ?>
