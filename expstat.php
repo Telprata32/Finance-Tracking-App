@@ -27,12 +27,8 @@ $qri->bind_param("s", $usEmail);
 $qri->execute(); // Execute the query
 $res1 = $qri->get_result(); // get the result of the query 
 
-//Assign the value in the date column to a variable, this will be the start date of the transaction
-$pyDate = $res1->fetch_array()['pyDate'];
-
-//Change the $pydate into a timestamp variable
-$strDate = strtotime($pyDate);
-$strDate = strtotime("last Monday", $strDate); //move the start date to the beginning of the week regardless of wherever the initial start date was
+//Take the start date as the current week's monday's date
+$strDate = strtotime("last Monday"); 
 
 //--------------------------------------
 //Section to move the chart left or right
