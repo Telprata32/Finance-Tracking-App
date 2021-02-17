@@ -142,6 +142,27 @@ body {
 }
 
 
+/* Css for the table and it's contents*/
+
+table {
+    width: 100%;
+}
+
+tbody {
+    display: block;
+    height: 150px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+thead th,
+tbody th {
+    width: 20%;
+}
+
+
 /* css to define the forms in addTrn.php and income.php */
 
 .mainForm {

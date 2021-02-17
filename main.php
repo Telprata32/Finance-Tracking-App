@@ -252,17 +252,16 @@ if (isset($_GET['reset'])) {
 
 
         <table id="mainDat">
-            <div style="height:50px; overflow: auto;">
+            <thead style="display:block; width:100%;">
                 <tr style="border-bottom: 4.2px solid #FFFF00;">
                     <th>Category</th>
                     <th>Amount</th>
                     <th>Date</th>
 
                 </tr>
+            </thead>
 
-
-
-
+            <tbody>
                 <?php
 
                 //check if the expenses table exists or not
@@ -283,8 +282,8 @@ if (isset($_GET['reset'])) {
                 }
 
                 ?>
-            </div>
-
+            </tbody>
+    
         </table>
 
         <!-- Division to display the pie chart -->
