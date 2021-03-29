@@ -27,8 +27,12 @@ $qri->bind_param("s", $usEmail);
 $qri->execute(); // Execute the query
 $res1 = $qri->get_result(); // get the result of the query 
 
-//Take the start date as the current week's monday's date
-$strDate = strtotime("last Monday"); 
+//Take today's date and store into $strDate
+$strDate = strtotime("today");
+//Move the $strDate to the current week's monday's date if $strDate isn't monday
+if (date("l",$strDate) != "Monday"){
+	$strDate = strtotime("last Monday"); 
+}
 
 //--------------------------------------
 //Section to move the chart left or right
